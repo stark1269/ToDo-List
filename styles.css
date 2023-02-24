@@ -1,0 +1,180 @@
+:root {
+  --transition: cubic-bezier(0.4, 0, 0.2, 1);
+  --gradient: linear-gradient(rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  line-height: 1.5;
+}
+
+/* rest */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+address {
+  font-style: normal;
+}
+
+/* reset */
+
+.btn_wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn {
+  width: 150px;
+  height: 150px;
+  border-width: 8px;
+  border-radius: 50%;
+
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-family: "Mulish", sans-serif;
+
+  border-color: grey;
+  background-color: black;
+  color: grey;
+
+  transition: color 500ms var(--transition);
+  transition: border-color 500ms var(--transition);
+}
+
+.btn:hover {
+  color: white;
+  border-color: white;
+}
+
+.btn:focus {
+  color: white;
+  border-color: white;
+}
+
+.modal {
+  padding: 20px;
+  width: 100%;
+  height: 500px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 1000px) {
+  .modal {
+    width: 500px;
+    height: 700px;
+  }
+}
+
+.modal_title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-family: "Mulish", sans-serif;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.form_input {
+  padding: 10px;
+  border-radius: 5px;
+  border-width: 3px;
+  height: 40px;
+  width: 80%;
+
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  font-family: "Mulish", sans-serif;
+}
+
+.form_input::placeholder {
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  font-family: "Mulish", sans-serif;
+}
+
+.form_btn {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+
+  background-image: url(./svg/add_icon.svg);
+}
+
+.task_btn {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+
+  background-image: url(./svg/cancel_icon.svg);
+}
+
+.task_text {
+  padding: 10px;
+  height: 40px;
+  width: 80%;
+
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  font-family: "Mulish", sans-serif;
+}
+
+.task_text::after {
+  display: block;
+  content: "";
+  height: 1px;
+  background-color: black;
+}
+
+.wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
