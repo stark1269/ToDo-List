@@ -16,82 +16,74 @@ function onClick(e) {
 `);
 
   instance.show();
-  loadTask();
 
-  const formBtn = document.querySelector('.form_btn');
-  const form = document.querySelector('.form');
-  const input = document.querySelector('.form_input');
+// =======================================================================================
 
-function loadTask() {
-  try {
-    const taskJSON = localStorage.getItem('task');
-    if (!taskJSON) {
-      console.log('В локальном хранилище нет задач.');
-      return;
-    }
-    const tasks = JSON.parse(taskJSON);
-    const tasksHTML = tasks
-      .map(task => `
-        <div class="wrapper">
-          <p class="task_text">${task.name}</p>
-          <a class="task_btn"></a>
-        </div>
-      `)
-      .join('');
-    const form = document.querySelector('.form');
-    form.insertAdjacentHTML('afterend', tasksHTML);
-  } catch (error) {
-    console.error(`Ошибка при загрузке задач: ${error.message}`);
-  }
-};
-
-    function render() {
-      return `<div class="wrapper">
-      <p class="task_text">${input.value}</p>
-      <a class="task_btn"></a>
-      </div>
-      `
+  function getRender({ id, value }) {
+  return `<div id="${id}" class="wrapper">
+  <p class="task_text">${value}</p>
+  <a class="task_btn"></a>
+  </div>`
   };
+  
+  const form = document.querySelector('.form');
 
   let todos = [];
   
-  formBtn.addEventListener('click', onSubmit);
-
   function onSubmit(e) {
-    e.preventDefault();
+    const input = e.target.elements.text
+    const { value } = input;
+    const newTodo = { id: Date.now(), value };
 
-    if (input.value !== '' && input.value.length < 35) {
-      form.insertAdjacentHTML('afterend', render());
-      function getFormData() {
-      return { name: input.value.trim() };
-      };
-      const formData = getFormData();
-      todos.push(formData);
-      
+    e.preventDefault();
+    if (!value) {
+      return
+    } todos.push(newTodo);
+    input.value = '';
+    saveTodos();
+    render();
+  };
+
+  function deleteTask(e) {
+    if (e.target.nodeName !== 'A') {
+      return
+    }
+
+    const parent = e.target.parentNode;
+    const indexIdTask = todos.findIndex((todo) => Number(parent.id) === todo.id);
+    todos.splice(indexIdTask, 1);
+    saveTodos();
+
+    parent.remove();
+  };
+
+  function saveTodos() {
+    try {
       localStorage.setItem('task', JSON.stringify(todos));
-      input.value = ''
+    } catch (error) {
+      console.error('error')
     };
   };
-};
 
-function deleteTask(e) {
-  e.preventDefault();
-
-  if (e.target.nodeName !== 'A') {
-    return
+  function loadTodos() {
+    try {
+      todos = JSON.parse(localStorage.getItem('task')) || [];
+    } catch (error) {
+      console.error('error');
+    };
   };
-  e.target.parentNode.remove();
-  localStorage.removeItem('task')
-};
 
-function lineThrough(e) {
-  if (e.target.nodeName !== 'P') {
-    return
+    function render() {
+    const listItem = todos.map(todo => getRender(todo)).join('');
+
+    form.insertAdjacentHTML('afterend', listItem);
   };
-  e.target.style.textDecoration = 'line-through';
-  e.target.style.color = 'grey';
+
+  loadTodos();
+  render();
+
+  form.addEventListener('submit', onSubmit);
+  document.addEventListener('click', deleteTask);
 };
 
-window.addEventListener('click', lineThrough);
-window.addEventListener('click', deleteTask);
 btnEl.addEventListener('click', onClick);
