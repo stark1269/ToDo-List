@@ -12,21 +12,23 @@ function onClick(e) {
       <input name="text" type="text" class="form_input" placeholder="tasks for today">
       <button type="submit" class="form_btn"></button>
       </form>
+      <div class="todo-container"></div>
     </div>
 `);
 
   instance.show();
 
-// =======================================================================================
+  // =======================================================================================
 
   function getRender({ id, value }) {
-  return `<div id="${id}" class="wrapper">
+    return `<div id="${id}" class="wrapper">
   <p class="task_text">${value}</p>
   <a class="task_btn"></a>
   </div>`
   };
   
   const form = document.querySelector('.form');
+  const todoContainer = document.querySelector('.todo-container');
 
   let todos = [];
   
@@ -40,8 +42,8 @@ function onClick(e) {
       return
     } todos.push(newTodo);
     input.value = '';
-    saveTodos();
     render();
+    saveTodos();
   };
 
   function deleteTask(e) {
@@ -73,17 +75,17 @@ function onClick(e) {
     };
   };
 
-    function render() {
+  function render() {
     const listItem = todos.map(todo => getRender(todo)).join('');
 
-    form.insertAdjacentHTML('afterend', listItem);
+    todoContainer.innerHTML = listItem;
   };
+  
+    loadTodos();
+    render();
 
-  loadTodos();
-  render();
-
-  form.addEventListener('submit', onSubmit);
-  document.addEventListener('click', deleteTask);
-};
+    form.addEventListener('submit', onSubmit);
+    document.addEventListener('click', deleteTask);
+  };
 
 btnEl.addEventListener('click', onClick);

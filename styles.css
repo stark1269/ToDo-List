@@ -164,6 +164,11 @@ address {
   font-family: "Mulish", sans-serif;
 }
 
+.done {
+  color: grey;
+  text-decoration: line-through;
+}
+
 .task_text::after {
   display: block;
   content: "";
